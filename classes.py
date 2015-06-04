@@ -1,6 +1,18 @@
 import pygame, math, sys, random
 from pygame.locals import *
 
+class config(object):
+    width = 800
+    height = 600
+    xtiles = 15
+    ytiles = 15
+    fps = 30
+    scrollstepx = 15
+    scrollstepy = 15
+    cornerpoint = [0,0]
+    zoomspeed = 0.01
+    zoom = 1.0
+
 
 class Ball(pygame.sprite.Sprite):
     selected = []
@@ -29,19 +41,9 @@ class Ball(pygame.sprite.Sprite):
             self.rect.move_ip(int(stepx), int(stepy))
             if self.rect[0] == self.target[0] and self.rect[1] == self.target[1]:
                 self.target = None
+            
 
             
-                
-            
-        
-
-    def calcnewpos(self,target):
-        i = 0
-        steps_number = max( abs(target[0]-self.rect[0]), abs(target[1]-self.rect[1]) )
-        stepx = float(target[0]-self.rect[0])/steps_number
-        stepy = float(target[1]-self.rect[1])/steps_number
-        self.rect.move(int(self.rect[1] + stepx*i), int(self.rect[1] + stepy*i))
-        i += 1
 
     ## marks a unit as selected if clicked on, and deselects it if you click elsewhere
     def selection(self):
