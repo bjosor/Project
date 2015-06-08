@@ -1,5 +1,5 @@
 import pygame, math, sys, random
-from pygame.locals import *
+
 
 class config(object):
     width = 800
@@ -31,14 +31,18 @@ class Ball(pygame.sprite.Sprite):
         self.pos = (self.rect[0],self.rect[1])
 
     ##used each frame to update the state of the instance
-    def update(self):
+    def update(self,seconds):
 
         #if a target has been set, move towards it and stop when reached
         if  self.target != None:
-            steps_number = max( abs(self.target[0]-self.rect[0]), abs(self.target[1]-self.rect[1]) )
-            stepx = float(self.target[0]-self.rect[0])/steps_number
-            stepy = float(self.target[1]-self.rect[1])/steps_number
-            self.rect.move_ip(int(stepx), int(stepy))
+            speed=3
+            dx = self.rect.x - self.target[0]
+            dy = self.rect.y - self.target[1]
+            dz = math.sqrt(dx**2 + dy**2)
+            #print (dz)
+            self.rect.x += (dx/dz*speed)*seconds
+            self.rect.y += (dy/dz*speed)*seconds
+                
             if self.rect[0] == self.target[0] and self.rect[1] == self.target[1]:
                 self.target = None
             

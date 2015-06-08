@@ -32,7 +32,6 @@ backgroundcopy = background.copy()
 screen.blit(background,(0,0))
 clock = pygame.time.Clock()
 
-
 # Blit everything to the screen
 screen.blit(background, (0, 0))
 pygame.display.flip()
@@ -47,8 +46,9 @@ sprites.add(ball1,ball2)
 
 mainloop = True
 while mainloop:
+    milliseconds = clock.tick(30)
+    seconds = milliseconds/1000.0
     pygame.display.set_caption('fps:%f'%clock.get_fps())
-    clock.tick(60)
 
     #event loop
     for event in pygame.event.get():
@@ -113,13 +113,12 @@ while mainloop:
 
 
     #updates units
-    for u in classes.Unitorg.units:
-        u.update()
+    
 
     #updates the screen
     screen.blit(background,(0,0))
     #sprites.clear(screen, background)
-    sprites.update()
+    sprites.update(seconds)
     sprites.draw(screen)
     pygame.display.flip()
 
